@@ -1,4 +1,5 @@
 import React, { use } from "react";
+import { Link } from "react-router";
 
 const bookPromise = fetch("/booksData.json").then((res) => res.json());
 
@@ -10,9 +11,13 @@ const AllBooks = () => {
     <div className="container mx-auto py-8">
       <h2 className="text-center font-bold text-4xl mb-4">Books</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {books.map((book) => (
-          <div className="card bg-base-100 w-96 p-4 shadow-sm space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-6">
+        {books.map((book, index) => (
+          <Link
+            key={index}
+            to={`/bookDetails/${book.bookId}`}
+            className="card bg-base-100 w-96 p-4 shadow-lg space-y-4"
+          >
             <figure className="bg-gray-100">
               <img
                 src={book.image}
@@ -22,8 +27,11 @@ const AllBooks = () => {
             </figure>
             <div className="card-body p-0 space-y-1">
               <div className=" flex gap-6 items-center">
-                {book.tags.map((tag) => (
-                  <span className="badge text-green-500 bg-green-100 font-bold text-lg">
+                {book.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="badge text-green-500 bg-green-100 font-bold text-lg"
+                  >
                     {tag}
                   </span>
                 ))}
@@ -37,7 +45,7 @@ const AllBooks = () => {
                 <div className=" font-semibold">Products</div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
