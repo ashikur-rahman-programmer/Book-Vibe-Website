@@ -24,9 +24,6 @@ export const router = createBrowserRouter([
         Component: BookDetails,
       },
     ],
-  },
-  {
-    path: "*",
-    Component: NotFound,
+    errorElement: <NotFound />,
   },
 ]);

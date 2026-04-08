@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData, useParams } from "react-router";
+import { BookContext } from "../../context/Context";
 
 const BookDetails = () => {
+  //params
   const { bookId } = useParams();
 
+  // data loader
   const books = useLoaderData();
-  // console.log(books);
-
+  // id matching
   const expectedBook = books.find((book) => book.bookId === Number(bookId));
-  console.log(expectedBook);
-
+  // context api
+  const bookContext = useContext(BookContext);
+  const { handleMarkAsRead, handleWishList } = bookContext;
   return (
     <div className="container mx-auto my-8">
       <div className="card lg:card-side bg-base-100 shadow-xl rounded-2xl overflow-hidden">
@@ -85,11 +88,17 @@ const BookDetails = () => {
 
           {/* Buttons */}
           <div className="flex gap-4 pt-4">
-            <button className="px-6 py-2 border border-gray-400 rounded-lg hover:bg-gray-200 transition">
-              Read
+            <button
+              className="px-6 py-2 border border-gray-400 rounded-lg hover:bg-gray-200 transition"
+              onClick={() => handleMarkAsRead(expectedBook)}
+            >
+              Mark as Read
             </button>
-            <button className="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition">
-              Wishlist
+            <button
+              className="px-6 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition"
+              onClick={() => handleWishList(expectedBook)}
+            >
+              Add to Wishlist
             </button>
           </div>
         </div>

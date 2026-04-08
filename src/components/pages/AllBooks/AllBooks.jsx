@@ -5,7 +5,6 @@ const bookPromise = fetch("/booksData.json").then((res) => res.json());
 
 const AllBooks = () => {
   const books = use(bookPromise);
-  console.log(books);
 
   return (
     <div className="container mx-auto py-8">
